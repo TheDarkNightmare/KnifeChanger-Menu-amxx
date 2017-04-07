@@ -2,7 +2,7 @@
 Plugin allow player to change standard model of knife to custom
 
 
-* Easy adding new Skin Name without editig menu
+* Easy adding new Skin Name without editing menu
 * Models path are also easy to add/edit
 * Nvault Save/Load for player pref. Knife Skin
 * Commands menu say /kosy - /knife
