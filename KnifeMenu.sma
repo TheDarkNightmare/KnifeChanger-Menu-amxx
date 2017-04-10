@@ -4,7 +4,7 @@
 #include <nvault>
 
 new const PLUGIN[] = "KnifeMenu Skins"
-new const VERSION[] = "1.5"
+new const VERSION[] = "1.6"
 new const AUTHOR[] = "Nightmare"
 
 #define MAXPLAYERS 32
@@ -21,11 +21,11 @@ new const KnifeNames[][] = {
 new const KnifeModels[][] = {
 	
     "models/v_knife.mdl",
-    "models/knifesoplica/crimsonweb.mdl",
-    "models/knifesoplica/dopplerphase4.mdl",
-    "models/knifesoplica/fade.mdl",
-    "models/knifesoplica/dagger.mdl",
-    "models/knifesoplica/deepspace.mdl"
+    "models/knifes/crimsonweb.mdl",
+    "models/knifes/dopplerphase4.mdl",
+    "models/knifes/fade.mdl",
+    "models/knifes/dagger.mdl",
+    "models/knifes/deepspace.mdl"
 }
 
 new player_knife[MAXPLAYERS+1]
@@ -90,7 +90,6 @@ public LoadKnife(id){
 	return PLUGIN_CONTINUE;
 	
 }
-///// ZAPIS
 public SaveKnife(id){
 	
 	new g_name[33][64];
@@ -117,7 +116,6 @@ public Set_Model(id) {
 	return PLUGIN_CONTINUE;
 	
 }
-/***********     Checking current weapon data     **********/
 public CurWeapon(id) {
 	if (!is_user_alive(id)) {
 		return PLUGIN_CONTINUE;
@@ -129,9 +127,6 @@ public CurWeapon(id) {
 			Set_Model(id)
 		}
 	}
-	
 	return PLUGIN_CONTINUE;
 } 
-/* AMXX-Studio Notes - DO NOT MODIFY BELOW HERE
-*{\\ rtf1\\ ansi\\ deff0{\\ fonttbl{\\ f0\\ fnil Tahoma;}}\n\\ viewkind4\\ uc1\\ pard\\ lang1045\\ f0\\ fs16 \n\\ par }
-*/
+
