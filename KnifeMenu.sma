@@ -4,10 +4,11 @@
 #include <nvault>
 
 new const PLUGIN[] = "KnifeMenu Skins"
-new const VERSION[] = "1.6"
+new const VERSION[] = "1.7"
 new const AUTHOR[] = "Nightmare"
 
 #define MAXPLAYERS 32
+
 
 new const KnifeNames[][] = {
 	
@@ -15,8 +16,8 @@ new const KnifeNames[][] = {
     "Crisom Web",
     "Doppler",
     "Fade",
-    "Shadow Daggers",
-    "Deepspace"
+    "[PREMIUM] Shadow Daggers",
+    "[PREMIUM] Deepspace"
 }
 new const KnifeModels[][] = {
 	
@@ -26,6 +27,16 @@ new const KnifeModels[][] = {
     "models/knifes/fade.mdl",
     "models/knifes/dagger.mdl",
     "models/knifes/deepspace.mdl"
+}
+
+new const FlagsKnife[][] = {
+
+	ADMIN_ALL,
+	ADMIN_ALL,
+	ADMIN_ALL,
+	ADMIN_ALL,
+	ADMIN_LEVEL_H,
+	ADMIN_LEVEL_H
 }
 
 new player_knife[MAXPLAYERS+1]
@@ -60,7 +71,7 @@ public Knife(id) {
 	new menu = menu_create("[Knife Changer] Wybierz swoj skin:", "Callback");
 	
 	for(new i = 0; i < sizeof(KnifeNames); i++){
-		menu_additem(menu , KnifeNames[i]);
+		menu_additem(menu , KnifeNames[i], FlagsKnife[i]);
 	}
 	menu_display(id, menu);
 }
