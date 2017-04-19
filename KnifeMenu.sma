@@ -1,10 +1,11 @@
 #include <amxmodx>
 #include <amxmisc>
+#include <colorchat>
 #include <fakemeta>
 #include <nvault>
 
 new const PLUGIN[] = "KnifeMenu Skins"
-new const VERSION[] = "1.7"
+new const VERSION[] = "1.7.2"
 new const AUTHOR[] = "Nightmare"
 
 #define MAXPLAYERS 32
@@ -12,29 +13,28 @@ new const AUTHOR[] = "Nightmare"
 
 new const KnifeNames[][] = {
 	
-    "Podstawowy",
-    "Crisom Web",
-    "Doppler",
-    "Fade",
-    "[PREMIUM] Shadow Daggers",
-    "[PREMIUM] Deepspace"
+	"Podstawowy",
+	"Crisom Web",
+	"Doppler",
+	"Fade",
+	"\r[PREMIUM]\w Shadow Daggers",
+	"\r[PREMIUM]\w Deepspace"
 }
 new const KnifeModels[][] = {
 	
-    "models/v_knife.mdl",
-    "models/knifes/crimsonweb.mdl",
-    "models/knifes/dopplerphase4.mdl",
-    "models/knifes/fade.mdl",
-    "models/knifes/dagger.mdl",
-    "models/knifes/deepspace.mdl"
+	"models/v_knife.mdl",
+	"models/knifes/crimsonweb.mdl",
+	"models/knifes/dopplerphase4.mdl",
+	"models/knifes/fade.mdl",
+	"models/knifes/dagger.mdl",
+	"models/knifes/deepspace.mdl"
 }
-
-new const FlagsKnife[][] = {
-
-	ADMIN_ALL,
-	ADMIN_ALL,
-	ADMIN_ALL,
-	ADMIN_ALL,
+new FlagsKnife[] = {
+	
+	0,
+	0,
+	0,
+	0,
 	ADMIN_LEVEL_H,
 	ADMIN_LEVEL_H
 }
@@ -42,9 +42,8 @@ new const FlagsKnife[][] = {
 new player_knife[MAXPLAYERS+1]
 new g_vault
 
-
 public plugin_init() {
-
+	
 	register_plugin(PLUGIN, VERSION, AUTHOR)
 	register_event("CurWeapon", "CurWeapon", "be", "1=1");
 	register_clcmd("say /knife", "Knife")
@@ -53,7 +52,7 @@ public plugin_init() {
 	g_vault = nvault_open("KnifeBase");
 }
 public plugin_precache() {
-    
+	
 	for (new i = 0; i < sizeof KnifeModels; i++)
 	precache_model(KnifeModels[i]);
 	
@@ -71,8 +70,9 @@ public Knife(id) {
 	new menu = menu_create("[Knife Changer] Wybierz swoj skin:", "Callback");
 	
 	for(new i = 0; i < sizeof(KnifeNames); i++){
-		menu_additem(menu , KnifeNames[i], FlagsKnife[i]);
+		menu_additem(menu , KnifeNames[i], "", FlagsKnife[i], -1);
 	}
+	menu_addtext(menu, "Aby wybrac kosy \r[Premium]\w nalezy wykupic usluge w sklepiku", 0);
 	menu_display(id, menu);
 }
 public Callback(id, menu, item) {
@@ -80,14 +80,24 @@ public Callback(id, menu, item) {
 		menu_destroy(menu);
 		return PLUGIN_CONTINUE;
 	}
-	player_knife[id] = item
-	Set_Model(id);
-	SaveKnife(id);
+	
+	if(FlagsKnife[item] == 0){
+		player_knife[id] = item
+		ColorChat(id, GREEN, "[Knife Changer]^x01 Wybrano model^x04 %s",KnifeNames[player_knife[id]]);
+		Set_Model(id);
+		SaveKnife(id);
+	}
+	else if(FlagsKnife[item] > 0 && get_user_flags(id) & FlagsKnife[item]){
+		player_knife[id] = item
+		ColorChat(id, GREEN, "[Knife Changer]^x01 Wybrano model^x04 %s",KnifeNames[player_knife[id]]);
+		Set_Model(id);
+		SaveKnife(id);
+	}
 	
 	return PLUGIN_CONTINUE;
 }
 public LoadKnife(id){
-    
+	
 	new g_name[33][64];
 	new vaultkey[64],vaultdata[128];
 	get_user_name(id, g_name[id], 63);
@@ -95,7 +105,7 @@ public LoadKnife(id){
 	
 	if(nvault_get(g_vault,vaultkey,vaultdata,127)) { // pobieramy dane
 		new knifeid[16];
-		parse(vaultdata, knifeid, 15); 
+		parse(vaultdata, knifeid, 15);
 		player_knife[id] = str_to_num(knifeid);
 	}
 	return PLUGIN_CONTINUE;
@@ -118,7 +128,7 @@ public Set_Model(id) {
 	new Clip, Ammo, Weapon = get_user_weapon(id, Clip, Ammo)
 	
 	if (Weapon != CSW_KNIFE)
-		return PLUGIN_HANDLED
+	return PLUGIN_HANDLED
 	
 	if (Weapon == CSW_KNIFE) {
 		
@@ -139,5 +149,4 @@ public CurWeapon(id) {
 		}
 	}
 	return PLUGIN_CONTINUE;
-} 
-
+}
