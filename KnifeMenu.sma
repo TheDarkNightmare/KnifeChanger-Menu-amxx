@@ -4,8 +4,8 @@
 #include <fakemeta>
 #include <nvault>
 
-new const PLUGIN[] = "KnifeMenu Skins"
-new const VERSION[] = "1.7.2"
+new const PLUGIN[] = "KnifeMenu Skin Changer"
+new const VERSION[] = "1.8.0b"
 new const AUTHOR[] = "Nightmare"
 
 #define MAXPLAYERS 32
@@ -50,6 +50,8 @@ public plugin_init() {
 	register_clcmd("say /kosy", "Knife")
 	
 	g_vault = nvault_open("KnifeBase");
+	
+	register_dictionary("knifemenu.txt")
 }
 public plugin_precache() {
 	
@@ -67,12 +69,16 @@ public client_disconnect(id)
 }
 public Knife(id) {
 	
-	new menu = menu_create("[Knife Changer] Wybierz swoj skin:", "Callback");
+	static title[80], info[80];
+	formatex(title, 79 , "[Knife Skin Changer] %L", LANG_PLAYER, "MENU_TITLE");
+	formatex(info, 79 , "%L", LANG_PLAYER, "MENU_INFO");
+	
+	new menu = menu_create(title, "Callback")
 	
 	for(new i = 0; i < sizeof(KnifeNames); i++){
 		menu_additem(menu , KnifeNames[i], "", FlagsKnife[i], -1);
 	}
-	menu_addtext(menu, "Aby wybrac kosy \r[Premium]\w nalezy wykupic usluge w sklepiku", 0);
+	menu_addtext(menu, info, 0)
 	menu_display(id, menu);
 }
 public Callback(id, menu, item) {
@@ -83,13 +89,13 @@ public Callback(id, menu, item) {
 	
 	if(FlagsKnife[item] == 0){
 		player_knife[id] = item
-		ColorChat(id, GREEN, "[Knife Changer]^x01 Wybrano model^x04 %s",KnifeNames[player_knife[id]]);
+		ColorChat(id, GREEN, "[Knife Skin Changer] %L", LANG_PLAYER, "KNIFE_SELECT", KnifeNames[player_knife[id]]);
 		Set_Model(id);
 		SaveKnife(id);
 	}
 	else if(FlagsKnife[item] > 0 && get_user_flags(id) & FlagsKnife[item]){
 		player_knife[id] = item
-		ColorChat(id, GREEN, "[Knife Changer]^x01 Wybrano model^x04 %s",KnifeNames[player_knife[id]]);
+		ColorChat(id, GREEN, "[Knife Skin Changer] %L", LANG_PLAYER, "KNIFE_SELECT", KnifeNames[player_knife[id]]);
 		Set_Model(id);
 		SaveKnife(id);
 	}
