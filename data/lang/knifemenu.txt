@@ -1,11 +1,11 @@
 [en]
-MENU_TITLE = "Select you skin:"
-MENU_INFO = "To unlock a \r[Premium]\w skins you must first buy it in webshop"
+MENU_TITLE = Select you skin:
+MENU_INFO = To unlock a \r[Premium]\w skins you must first buy it in webshop
 KNIFE_SELECT= "You select a^x04 %s skin"
 
 [pl] 
-MENU_TITLE = "Wybierz swoj skin:"
-MENU_INFO = "Aby wybrac kosy \r[Premium]\w nalezy wykupic usluge w sklepiku" 
+MENU_TITLE = Wybierz swoj skin:
+MENU_INFO = Aby wybrac kosy \r[Premium]\w nalezy wykupic usluge w sklepiku 
 KNIFE_SELECT = "Wybrano model^x04 %s"
 
 
