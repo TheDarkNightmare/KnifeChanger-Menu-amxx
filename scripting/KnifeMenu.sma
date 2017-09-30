@@ -5,11 +5,10 @@
 #include <nvault>
 
 new const PLUGIN[] = "KnifeMenu Skin Changer"
-new const VERSION[] = "1.8.0b"
+new const VERSION[] = "1.8.1b"
 new const AUTHOR[] = "Nightmare"
 
 #define MAXPLAYERS 32
-
 
 new const KnifeNames[][] = {
 	
@@ -99,7 +98,6 @@ public Callback(id, menu, item) {
 		Set_Model(id);
 		SaveKnife(id);
 	}
-	
 	return PLUGIN_CONTINUE;
 }
 public LoadKnife(id){
