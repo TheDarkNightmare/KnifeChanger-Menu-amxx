@@ -8,3 +8,5 @@ MENU_TITLE = "[Knife Skin Changer] Wybierz swoj skin:"
 MENU_INFO = "Aby wybrac kosy \r[Premium]\w nalezy wykupic usluge w sklepiku" 
 KNIFE_SELECT = "Wybrano model^x04 %s"
 
+
+/* Additional translations pls add as new commit to this plugin */
